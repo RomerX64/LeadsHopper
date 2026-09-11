@@ -1,6 +1,6 @@
-# LeadHopper
+# LeadsHopper
 
-LeadHopper es una plataforma open source y self-hosted para descubrir,
+LeadsHopper es una plataforma open source y self-hosted para descubrir,
 organizar y operar leads comerciales. Su interfaz es una consola de
 prospección: configura zonas y búsquedas, programa ejecuciones, revisa leads y
 los deriva a herramientas especializadas.
