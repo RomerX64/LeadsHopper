@@ -26,11 +26,11 @@ Chatwoot por conexión. Sus usuarios comparten esos recursos según sus permisos
 
 ## Roles
 
-| Rol | Alcance |
-|---|---|
-| `super_admin` | instalación, tenants y métricas agregadas |
-| `admin` | usuarios, conexiones y configuración de su tenant |
-| `user` | leads, búsquedas y conversaciones autorizadas |
+| Rol           | Alcance                                           |
+| ------------- | ------------------------------------------------- |
+| `super_admin` | instalación, tenants y métricas agregadas         |
+| `admin`       | usuarios, conexiones y configuración de su tenant |
+| `user`        | leads, búsquedas y conversaciones autorizadas     |
 
 ## Ciclo de vida
 

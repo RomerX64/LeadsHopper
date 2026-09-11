@@ -1,0 +1,20 @@
+{
+  "name": "api-shared-kernel",
+  "sourceRoot": "libs/api/shared-kernel/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/api/shared-kernel",
+        "main": "libs/api/shared-kernel/src/index.ts",
+        "tsConfig": "libs/api/shared-kernel/tsconfig.lib.json"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "command": "tsc --noEmit -p libs/api/shared-kernel/tsconfig.lib.json" }
+    }
+  },
+  "tags": ["scope:api", "type:domain"]
+}

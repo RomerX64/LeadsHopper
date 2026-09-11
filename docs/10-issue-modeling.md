@@ -7,16 +7,27 @@ issue debe ser solo una intención vaga.
 
 ```markdown
 ## Problema
+
 ## Resultado esperado
+
 ## Alcance
+
 ## Fuera de alcance
+
 ## Contrato de entrada/salida
+
 ## Invariantes
+
 ## Casos de error
+
 ## Diseño propuesto
+
 ## Dependencias
+
 ## Pruebas
+
 ## Criterios de aceptación
+
 ## Riesgos y preguntas abiertas
 ```
 

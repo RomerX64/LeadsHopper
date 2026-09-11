@@ -17,8 +17,9 @@ pero el dominio soporta cualquier categoría y región.
 
 ## Estado
 
-El proyecto se encuentra en diseño y preparación de la base técnica. La
-documentación define el producto antes de comenzar la implementación.
+La base técnica está implementada y validada. La primera etapa de desarrollo
+consiste en convertir los hosts mínimos en un vertical slice ejecutable de
+identidad y tenancy; todavía no hay funcionalidades comerciales terminadas.
 
 ## Documentación
 
@@ -33,12 +34,26 @@ documentación define el producto antes de comenzar la implementación.
 - [Calidad y linting](docs/09-calidad-y-linting.md)
 - [Issue modeling](docs/10-issue-modeling.md)
 - [Roadmap](docs/11-roadmap.md)
+- [QA y testing](docs/12-qa-y-testing.md)
+- [Git y contribución](docs/13-git-y-contribucion.md)
 - [ADRs](docs/adr/README.md)
 
 ## Desarrollo
 
-El entorno completo se levantará con Docker Compose. Las imágenes de Twenty y
-Chatwoot serán dependencias externas versionadas; sus repositorios fuente no se
+Usa Node.js LTS y pnpm:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+`pnpm dev` inicia PostgreSQL y Redis mediante Docker Compose y ejecuta API y
+web con recarga en desarrollo. Los comandos de calidad son `pnpm lint`,
+`pnpm typecheck`, `pnpm test`, `pnpm test:e2e`, `pnpm build` y `pnpm ci`.
+
+La rama de integración es `develop`. Crea ramas `feature/`, `fix/`, `test/`,
+`docs/` o `spike/` y usa Conventional Commits. Las imágenes de Twenty y
+Chatwoot son dependencias externas versionadas; sus repositorios fuente no se
 copian dentro de este monorepo.
 
 ## Licencia

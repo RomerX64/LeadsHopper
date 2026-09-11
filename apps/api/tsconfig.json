@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/apps/api",
+    "rootDir": "src",
+    "lib": ["ES2022"],
+    "types": ["node", "jest"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../../libs/api/shared-kernel/tsconfig.lib.json" },
+    { "path": "../../libs/shared/contracts/tsconfig.lib.json" }
+  ]
+}

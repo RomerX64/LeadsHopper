@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/libs/api/shared-kernel",
+    "rootDir": "src",
+    "composite": true
+  },
+  "include": ["src/**/*.ts"]
+}
