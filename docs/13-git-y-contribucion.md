@@ -47,4 +47,5 @@ pnpm test
 pnpm build
 ```
 
-El PR debe explicar contrato, migraciones, tenant isolation, pruebas y riesgos.
+El PR debe explicar contrato, migraciones, alcance single-tenant, pruebas y
+riesgos.

@@ -16,7 +16,8 @@
 - `scope:web` solo depende de `scope:web` y `scope:shared`.
 - `domain` no importa frameworks, ORM, Redis, BullMQ ni HTTP.
 - `application` no importa adapters concretos.
-- Twenty/Chatwoot aparecen solo en adapters, contract tests y configuración.
+- Las fuentes externas aparecen solo en adapters, contract tests y
+  configuración.
 - Next.js no contiene API Routes con lógica de negocio.
 
 ## Reglas obligatorias
@@ -25,7 +26,7 @@
 - Sin `console` en producción; usar logger.
 - Sin secretos ni URLs sensibles hardcodeadas.
 - Sin `synchronize: true`.
-- Sin queries sin `tenantId` ni paginación cuando corresponda.
+- Sin queries sin límites ni paginación cuando corresponda.
 - Sin controllers con repositorios o lógica de negocio.
 - Sin jobs no idempotentes.
 - Sin `latest` en Docker.
@@ -38,9 +39,8 @@ Cada feature debe cubrir:
 
 1. camino feliz;
 2. validación o error de dominio;
-3. aislamiento por tenant;
-4. error de infraestructura relevante;
-5. integración real cuando involucre un servicio externo.
+3. error de infraestructura relevante;
+4. integración real cuando involucre una fuente externa.
 
-Los contract tests deben ejecutarse contra las versiones de Twenty y Chatwoot
-documentadas en la matriz de compatibilidad.
+Los contract tests deben ejecutarse contra fixtures o versiones fijadas de cada
+fuente documentada.

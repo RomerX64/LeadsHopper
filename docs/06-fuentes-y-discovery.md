@@ -2,14 +2,15 @@
 
 ## Contrato común
 
-Todo adapter implementa un puerto que recibe categoría, zona, límites y
-configuración del tenant, y devuelve registros crudos con:
+Todo adapter implementa un puerto que recibe categoría, región, límites y
+configuración de la instalación, y devuelve registros crudos con:
 
-- nombre y categoría;
-- dirección, ciudad y coordenadas;
-- teléfono, web y redes si están disponibles;
+- nombre y categoría cuando la fuente los provee;
+- dirección, ciudad y coordenadas cuando están disponibles;
+- teléfono, web y redes sin inventar valores;
 - `sourceType`, `sourceUrl` y `collectedAt`;
-- advertencias de cobertura o verificación.
+- advertencias de cobertura o verificación;
+- el payload original de la fuente.
 
 ## Política de fuentes
 
@@ -19,16 +20,16 @@ configuración del tenant, y devuelve registros crudos con:
 - Scrapers de riesgo son opt-in, experimentales, versionados y advertidos.
 - No se ocultan rate limits ni se intenta evadir controles.
 
-## Discovery
+## Discovery MVP
 
-Una ejecución registra configuración, inicio, fin, cantidad de resultados,
-duplicados, errores, fuente y usuario/tenant. Puede ejecutarse manualmente o
-por cronjob.
+El usuario configura categoría, región, límites y fuente, ejecuta manualmente y
+recibe una ejecución con estado, inicio, fin, cantidad, errores y payload crudo.
+La respuesta debe poder verse como JSON y en una tabla simple.
 
-Los adaptadores deben aplicar timeout, retry limitado, backoff y User-Agent
-identificable cuando la fuente lo requiera.
+En el MVP no hay cronjobs, normalización, deduplicación, scoring ni
+sincronización externa. Esas operaciones se diseñarán después de validar la
+calidad del retorno crudo.
 
-## Calidad del dato
-
-Normalizar no significa inventar. Un teléfono ausente es desconocido; no prueba
-que el negocio no tenga teléfono. Los conflictos se conservan como evidencia.
+Los adapters deben aplicar timeout, retry limitado, backoff y User-Agent
+identificable cuando la fuente lo requiera. Un fallo de fuente debe ser visible
+y clasificado; nunca debe convertirse silenciosamente en una lista vacía.

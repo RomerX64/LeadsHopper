@@ -36,7 +36,9 @@ issue debe ser solo una intención vaga.
 - Una issue debe tener un solo resultado verificable.
 - Una tarea de producción se limita a un módulo/archivo cohesivo; si excede ese
   límite se subdivide.
-- Toda issue de negocio declara el `tenantId` y la política de autorización.
+- En el MVP single-tenant, toda issue declara el alcance de la instalación y
+  no agrega `tenantId` artificial. Si se reabre multi-tenancy, debe existir un
+  ADR previo.
 - Toda integración declara timeout, auth, retry, idempotencia y contrato de
   error.
 - Toda migración incluye estrategia de rollback o mitigación.

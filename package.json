@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "pnpm dev:infra && concurrently --kill-others --names api,web \"pnpm dev:api\" \"pnpm dev:web\"",
-    "dev:infra": "docker compose --profile core up -d postgres redis",
+    "dev:infra": "docker compose --profile core up -d postgres",
     "dev:api": "nx serve api",
     "dev:web": "nx serve web",
     "dev:down": "docker compose down",

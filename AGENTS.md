@@ -17,7 +17,8 @@
 
 ## Safety
 
-- Every tenant-scoped operation carries an explicit `tenantId`.
+- The MVP is single-tenant; do not introduce tenant IDs, memberships, or
+  cross-tenant abstractions unless a future ADR reopens this decision.
 - Never commit secrets, `.env` files, or sensitive fixtures.
 - Never use `latest` Docker tags or TypeORM `synchronize: true`.
 - External calls require timeout, bounded retry, idempotency, and safe logs.

@@ -1,39 +1,19 @@
-# Multi-tenancy y autorización
+# Modelo de instalación single-tenant
 
-## Modelo
-
-```text
-Tenant
- ├── Membership ── User
- ├── Lead
- ├── SearchZone / SearchDefinition / Schedule
- ├── IntegrationConnection
- ├── ProvisioningOperation
- └── SynchronizationOperation
-```
-
-Cada tenant tiene como máximo un workspace lógico de Twenty y una cuenta de
-Chatwoot por conexión. Sus usuarios comparten esos recursos según sus permisos.
+El MVP representa una única instalación para un equipo comercial. Todas las
+búsquedas y ejecuciones pertenecen a esa instalación; no se agrega un
+`tenantId`, memberships ni una jerarquía de roles antes de necesitarla.
 
 ## Invariantes
 
-- Toda entidad de negocio persistida tiene `tenantId`, salvo entidades globales.
-- Toda query de tenant aplica el contexto antes de acceder al repositorio.
-- Un usuario nunca puede leer o mutar recursos de otro tenant.
-- Un `super_admin` puede ver métricas agregadas, no datos comerciales crudos,
-  salvo una operación auditada explícita.
-- Los adapters nunca reciben un tenant implícito.
+- La configuración se carga desde el entorno de la instalación.
+- Cada ejecución conserva la fuente, el request original, `collectedAt`,
+  errores y payload crudo.
+- No existen lecturas cross-tenant porque no existe un segundo tenant.
+- Una futura decisión multi-tenant debe registrarse en un ADR y no filtrarse
+  como abstracción preventiva por todo el código.
 
-## Roles
+## Futuro
 
-| Rol           | Alcance                                           |
-| ------------- | ------------------------------------------------- |
-| `super_admin` | instalación, tenants y métricas agregadas         |
-| `admin`       | usuarios, conexiones y configuración de su tenant |
-| `user`        | leads, búsquedas y conversaciones autorizadas     |
-
-## Ciclo de vida
-
-El registro crea un tenant y su primer admin. El provisioning externo puede
-quedar `pending`, `in_progress`, `completed`, `failed` o `needs_repair`.
-Registrar el tenant local no depende de que Twenty o Chatwoot estén disponibles.
+Autenticación multiusuario, roles, memberships y aislamiento por tenant quedan
+fuera del MVP. Este archivo conserva su nombre histórico para no romper enlaces.

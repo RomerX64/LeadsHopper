@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("web home page and API health are available", async ({ page, request }) => {
+test("foundation web page and API health are available", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Foundation ready." })).toBeVisible();
 

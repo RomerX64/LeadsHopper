@@ -3,3 +3,4 @@
 - [ADR-001: adapters sobre imágenes oficiales](ADR-001-adapters-sobre-imagenes-oficiales.md)
 - [ADR-002: tenant como workspace comercial](ADR-002-tenant-como-workspace-comercial.md)
 - [ADR-003: LeadHopper como consola de prospección](ADR-003-consola-de-prospeccion.md)
+- [ADR-004: MVP single-tenant orientado a discovery crudo](ADR-004-mvp-single-tenant-discovery.md)
