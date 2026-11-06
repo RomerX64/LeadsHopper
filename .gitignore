@@ -4,6 +4,7 @@ graphify-out/
 !.env.example
 node_modules/
 .nx/
+tmp/
 dist/
 .next/
 build/

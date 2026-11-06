@@ -7,6 +7,8 @@ apps/api  ── host NestJS REST/OpenAPI
 apps/web  ── host Next.js UI
 libs/api/
   shared-kernel/
+  users/
+  discovery/
   lead-discovery/
   raw-results/
 libs/shared/
@@ -34,7 +36,9 @@ implementaciones justificadas.
 
 ## Módulos del MVP
 
-- **Lead Discovery:** configuración de búsqueda, fuentes y ejecuciones.
+- **Operator Account:** cuenta única local, sesión y perfil.
+- **Discovery:** contrato de búsqueda, puerto de fuente y adapter fixture
+  inicial. El scraper Docker se incorporará después del spike comparativo.
 - **Raw Results:** persistencia, consulta y exportación del payload original.
 
 ## API pública
@@ -44,3 +48,8 @@ al MVP.
 
 Controllers reciben DTOs, ejecutan Commands/Queries y devuelven Response DTOs.
 No contienen repositorios ni reglas de negocio.
+
+La primera implementación usa un repositorio en memoria para mantener el
+vertical slice ejecutable sin introducir migraciones antes de definir el
+modelo de discovery. El puerto `UserRepository` permite sustituirlo por
+PostgreSQL sin tocar dominio ni aplicación.

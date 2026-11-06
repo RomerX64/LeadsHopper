@@ -24,7 +24,15 @@ imagen, variables requeridas y capacidades comprobadas.
 
 ## Perfiles Docker Compose
 
-- `core`: API, web y PostgreSQL.
+- `core`: PostgreSQL y, para el despliegue contenedorizado, API y web.
+- Durante `pnpm dev`, solo PostgreSQL se ejecuta en Docker; API y web se
+  ejecutan en el host local para conservar hot reload.
+- El puerto publicado por defecto para PostgreSQL es `5433` para evitar
+  colisiones con instalaciones locales; dentro del contenedor continúa siendo
+  `5432`.
+- La migración inicial de la cuenta de operador se monta como script de
+  inicialización de PostgreSQL. Si el volumen ya existe, usar
+  `pnpm dev:reset` en desarrollo para aplicarla desde cero.
 - `integrations` y `full`: quedan reservados para fases posteriores.
 
 ## Reglas de configuración
@@ -39,8 +47,10 @@ imagen, variables requeridas y capacidades comprobadas.
 
 | Comando          | Propósito                                          |
 | ---------------- | -------------------------------------------------- |
-| `pnpm dev`       | Inicia infraestructura core y hosts en modo watch  |
-| `pnpm dev:infra` | Inicia PostgreSQL y Redis                          |
+| `pnpm dev`       | Inicia PostgreSQL y API/web locales en modo watch  |
+| `pnpm dev:infra` | Inicia PostgreSQL y espera el healthcheck          |
+| `pnpm dev:api`   | API local en `127.0.0.1:3101` con watch            |
+| `pnpm dev:web`   | Web local en `127.0.0.1:3100` con hot reload       |
 | `pnpm dev:down`  | Detiene los servicios del entorno                  |
 | `pnpm test`      | Ejecuta unit e integration tests registrados en Nx |
 | `pnpm test:e2e`  | Ejecuta journeys Playwright contra los hosts       |

@@ -1,40 +1,41 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-test.describe("raw discovery MVP", () => {
-  test.fixme("configures and executes a discovery search", async ({ page }) => {
-    await page.goto("/search");
-    await page.getByLabel("Category").fill("real estate");
-    await page.getByLabel("Region").fill("Alta Gracia, Córdoba");
-    await page.getByLabel("Source").selectOption("overpass");
-    await page.getByLabel("Limit").fill("20");
-    await page.getByRole("button", { name: "Run search" }).click();
+test("operator can search, inspect and download leads", async ({ page }) => {
+  const email = `operator-${Date.now()}@example.com`;
+  const password = "LeadHopper!2025";
 
-    await page.getByRole("status").filter({ hasText: "completed" }).waitFor();
-    await page.getByRole("link", { name: /view results/i }).click();
-  });
+  await page.goto("/");
+  await page.getByLabel("Nombre visible").fill("E2E Operator");
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("Contraseña").fill(password);
+  await page.locator("form").getByRole("button").click();
+  await expect(page.getByText("Cuenta creada. Inicia sesión para continuar.")).toBeVisible();
 
-  test.fixme("shows the same raw records as JSON and a table", async ({ page }) => {
-    await page.goto("/runs/example");
-    await page.getByRole("tab", { name: "Table" }).click();
-    await page.getByRole("table").waitFor();
-    await page.getByRole("tab", { name: "JSON" }).click();
-    await page.getByRole("code").waitFor();
-  });
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("Contraseña").fill(password);
+  await page.locator("form").getByRole("button").click();
+  await expect(page.getByText("Tu espacio de prospección.")).toBeVisible();
 
-  test.fixme("downloads the original JSON payload", async ({ page }) => {
-    await page.goto("/runs/example");
-    const download = page.waitForEvent("download");
-    await page.getByRole("button", { name: /download json/i }).click();
-    await download;
-  });
+  await page.getByRole("link", { name: "Nueva búsqueda" }).first().click();
+  await expect(page).toHaveURL(/\/search$/);
+  await page.getByLabel("Category").fill("restaurantes");
+  await page.getByLabel("Region").fill("Alta Gracia, Córdoba");
+  await page.getByLabel("Limit").fill("10");
+  await page.getByRole("button", { name: /Ejecutar búsqueda/ }).click();
+  await expect(page.getByText("2 negocios encontrados")).toBeVisible();
+  await expect(page.getByRole("table")).toContainText("La Cocina de Alta Gracia");
 
-  test.fixme("displays a classified source error instead of an empty result", async ({ page }) => {
-    await page.goto("/search");
-    await page.getByLabel("Source").selectOption("fixture-timeout");
-    await page.getByRole("button", { name: "Run search" }).click();
-    await page
-      .getByRole("alert")
-      .filter({ hasText: /timeout/i })
-      .waitFor();
-  });
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Descargar" }).click();
+  await expect((await download).suggestedFilename()).toBe("leadhopper-results.json");
+
+  await page.getByRole("link", { name: "Historial" }).click();
+  await expect(page).toHaveURL(/\/runs$/);
+  await expect(page.getByRole("table")).toContainText("restaurantes");
+  await page
+    .getByRole("link", { name: /2026|2025|2024/ })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/\/runs\/.+/);
+  await expect(page.getByRole("code")).toContainText("La Cocina de Alta Gracia");
 });

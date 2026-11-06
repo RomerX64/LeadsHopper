@@ -8,13 +8,15 @@
 Validar el flujo completo de discovery en una instalación single-tenant:
 
 ```text
-Configurar búsqueda → ejecutar fuente → conservar payload crudo
+Crear cuenta → iniciar sesión → configurar búsqueda → ejecutar fuente
+→ conservar payload crudo
 → consultar JSON → revisar listado → descargar resultado
 ```
 
 ## Estado actual
 
 - **Foundation:** completada y publicada en `develop`.
+- **Cuenta de operador:** vertical slice API/UI implementado localmente.
 - **Producto:** sin lógica de discovery implementada.
 - **Smoke técnico:** activo y pasando.
 - **Journeys de producto:** diseñados en `e2e/discovery.spec.ts`, marcados
@@ -37,7 +39,17 @@ Configurar búsqueda → ejecutar fuente → conservar payload crudo
 
 ## Milestones
 
-### M0 — Foundation ejecutable
+### M0 — Operator account
+
+**Objetivo:** proteger la instalación single-tenant con una cuenta local.
+
+- crear la única cuenta;
+- iniciar y cerrar sesión;
+- consultar y editar perfil;
+- cambiar contraseña y eliminar cuenta;
+- revocar sesiones al cerrar sesión o eliminar la cuenta.
+
+### M1 — Foundation ejecutable
 
 **Objetivo:** poder desarrollar y validar con comandos reproducibles.
 
@@ -49,7 +61,7 @@ Configurar búsqueda → ejecutar fuente → conservar payload crudo
 
 **Criterio de salida:** `pnpm ci` pasa y el smoke de API/web está activo.
 
-### M1 — Contrato y almacenamiento
+### M2 — Contrato y almacenamiento
 
 **Issues:** #99, #100.
 
@@ -59,7 +71,7 @@ resultado original sin opiniones derivadas.
 **Criterio de salida:** una ejecución puede persistirse y recuperarse con su
 request, fuente, estado, timestamps, errores y payload exacto.
 
-### M2 — Fuente real
+### M3 — Fuente real
 
 **Issues:** #101, #104.
 
@@ -68,7 +80,7 @@ request, fuente, estado, timestamps, errores y payload exacto.
 **Criterio de salida:** fixtures de éxito, vacío, respuesta inválida, timeout y
 rate limit cubiertos sin depender de red durante los tests.
 
-### M3 — Vertical slice API
+### M4 — Vertical slice API
 
 **Issue:** #102.
 
@@ -77,7 +89,7 @@ rate limit cubiertos sin depender de red durante los tests.
 **Criterio de salida:** crear ejecución, consultar estado, obtener JSON crudo y
 recibir errores HTTP tipados.
 
-### M4 — Vertical slice UX
+### M5 — Vertical slice UX
 
 **Issue:** #103.
 
@@ -86,7 +98,7 @@ recibir errores HTTP tipados.
 **Criterio de salida:** formulario, loading, empty, error, JSON, tabla y
 descarga funcionales.
 
-### M5 — Release candidate del MVP
+### M6 — Release candidate del MVP
 
 **Issues:** #105, #106.
 
@@ -101,7 +113,8 @@ cobertura y responsabilidades legales.
 
 - La issue cumple sus criterios de aceptación.
 - Tiene pruebas de la frontera modificada.
-- No agrega multi-tenancy, IAM, CRM, Chatwoot, scoring ni automatización.
+- No agrega multi-tenancy, múltiples usuarios, CRM, Chatwoot, scoring ni
+  automatización.
 - Conserva el payload original.
 - Actualiza documentación o contratos afectados.
 - `pnpm ci` pasa.

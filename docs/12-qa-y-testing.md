@@ -19,6 +19,16 @@ journeys de producto viven en `e2e/discovery.spec.ts`. Están marcados como
 `test.fixme` mientras las issues #99–#103 no implementen sus contratos; al
 completar #105 se deben convertir en pruebas activas y eliminar el `fixme`.
 
+### QA-000 Cuenta de operador
+
+1. Crear la única cuenta con email, nombre y contraseña válidos.
+2. Rechazar una segunda cuenta y credenciales inválidas con el mismo error
+   observable.
+3. Iniciar sesión y consultar el perfil sin exponer el hash.
+4. Actualizar perfil, cambiar contraseña y cerrar sesión.
+5. Rechazar el perfil después de revocar el token.
+6. Eliminar la cuenta y revocar todas sus sesiones.
+
 ### QA-001 Ejecutar una búsqueda
 
 1. Abrir `/search`.

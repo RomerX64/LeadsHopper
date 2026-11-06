@@ -41,9 +41,15 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev` inicia PostgreSQL y Redis mediante Docker Compose y ejecuta API y
-web con recarga en desarrollo. Los comandos de calidad son `pnpm lint`,
+`pnpm dev` inicia PostgreSQL mediante Docker Compose y ejecuta API y web en el
+host local con watch/hot reload. Redis no es necesario para el MVP actual y
+queda reservado para jobs futuros. Los comandos de calidad son `pnpm lint`,
 `pnpm typecheck`, `pnpm test`, `pnpm test:e2e`, `pnpm build` y `pnpm ci`.
+
+Por defecto, el entorno queda disponible en `http://127.0.0.1:3100` (web) y
+`http://127.0.0.1:3101` (API). PostgreSQL se publica en `127.0.0.1:5433` para
+evitar colisiones con otros proyectos locales. Puedes cambiar estos puertos en
+`.env`.
 
 La rama de integración es `develop`. Crea ramas `feature/`, `fix/`, `test/`,
 `docs/` o `spike/` y usa Conventional Commits.
